@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "simulator.h"
 
 #include <cstdio>
 #include <ctime>
@@ -8,6 +9,10 @@ Texture *screen;
 
 int main( int argc, char *args[] )
 {
+ char aux[100],path[100]={"output/gen_"};
+ scanf("%s",aux);
+ strcat(path,aux);
+ strcat(path,".txt");
  ///Random
  srand((unsigned int)(time(NULL)));
  ///Random
@@ -54,6 +59,11 @@ int main( int argc, char *args[] )
     }
  Flip_Buffers(screen);
  //static_screen=screen;
-
+ Simulator test;
+ test.Load_map("map.txt");
+ test.Load_moves(path);
+ Load_images();
+ test.Create_path_image();
+ test.Start(screen);
  return 0;
 }

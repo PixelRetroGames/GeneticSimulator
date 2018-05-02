@@ -313,3 +313,21 @@ void Flip_Buffers(Texture *screen)
  SDL_RenderPresent(RENDERER);
  SDL_UnlockMutex(RENDERER_MUTEX);
 }
+
+void Apply_Texture(SDL_Rect src_rect,Texture *src,SDL_Rect dest_rect,Texture *dest)
+{
+ if(src==NULL || src->image==NULL)
+    return;
+
+ SDL_LockMutex(RENDERER_MUTEX);
+ if(dest->image!=NULL)
+    {
+     SDL_SetRenderTarget(RENDERER,dest->image);
+    }
+ SDL_RenderCopy(RENDERER,src->image,&src_rect,&dest_rect);
+ if(dest->image!=NULL)
+    {
+     SDL_SetRenderTarget(RENDERER,NULL);
+    }
+ SDL_UnlockMutex(RENDERER_MUTEX);
+}

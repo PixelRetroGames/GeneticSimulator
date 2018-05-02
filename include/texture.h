@@ -27,5 +27,6 @@ void Destroy_Texture(Texture *_texture);
 
 extern Texture *SCREEN,*last_frame;
 void Flip_Buffers(Texture *screen);
+void Apply_Texture(SDL_Rect src_rect,Texture *src,SDL_Rect dest_rect,Texture *dest);
 
 #endif // TEXTURE_H
