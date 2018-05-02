@@ -108,10 +108,7 @@ void Simulator::Start(Texture *_screen)
         Apply_Texture({0,0,buff->w,buff->h},buff,{0,0,_screen->w,_screen->h},_screen);
         Flip_Buffers(_screen);
         Move();
-        if(current_move>3*number_of_moves/4)
-           SDL_Delay(200);
-        else
-           SDL_Delay(100);
+        SDL_Delay(10000/number_of_moves);
        }
  if(!(x==MAP.size()-1 && y==MAP.size()-1))
     printf("\nDestination not reached!!");
