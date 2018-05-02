@@ -97,9 +97,13 @@ void Simulator::Start(Texture *_screen)
 {
  Texture *buff;
  buff=Create_Transparent_Texture(MAP.size()*OBSTACLE_IMAGE->w,MAP.size()*OBSTACLE_IMAGE->h);
- while(current_move<number_of_moves && !(x==MAP.size()-1 && y==MAP.size()-1))
+ SDL_Event ev;
+ bool quit=false;
+ while(current_move<number_of_moves && !(x==MAP.size()-1 && y==MAP.size()-1) && !quit)
        {
-        SDL_PumpEvents();
+        SDL_PollEvent(&ev);
+        if(ev.type==SDL_QUIT || (ev.type==SDL_KEYDOWN && ev.key.keysym.scancode==SDL_SCANCODE_ESCAPE))
+           quit=true;
         Print(buff);
         Apply_Texture({0,0,buff->w,buff->h},buff,{0,0,_screen->w,_screen->h},_screen);
         Flip_Buffers(_screen);
@@ -109,7 +113,6 @@ void Simulator::Start(Texture *_screen)
         else
            SDL_Delay(100);
        }
- SDL_Delay(1000);
  if(!(x==MAP.size()-1 && y==MAP.size()-1))
     printf("\nDestination not reached!!");
  else
